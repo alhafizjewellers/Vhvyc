@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PANEL iOS  2026👹</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
+    body {
+      background: #09090f;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* --- AUTH SCREEN --- */
+    #authScreen {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .auth-box {
+      background: #111;
+      border: 2px solid #8000ff;
+      border-radius: 12px;
+      padding: 30px 24px;
+      width: 300px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+    .auth-box h2 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+    .auth-box input {
+      width: 100%;
+      padding: 10px;
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 15px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .auth-box input:focus {
+      border-color: #8000ff;
+      outline: none;
+    }
+    .auth-box button {
+      width: 100%;
+      padding: 10px;
+      background: #8000ff;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .auth-box button:hover {
+      background: #a55cff;
+    }
+
+    /* --- MAIN PANEL --- */
+    .panel {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      border-radius: 12px;
+      width: 340px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      display: none;
+    }
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .header .logo {
+      width: 32px; height: 32px;
+      background: #1c1c1c; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header .logo svg { width:20px; height:20px; fill: #8000ff; }
+    .header h1 {
+      flex:1; text-align: center;
+      color: #fff; font-size: 18px; letter-spacing:1px;
+    }
+    .header .expire {
+      color: #ff4aff; font-size:14px; font-weight:600;
+      display: flex; align-items: center;
+    }
+    .header .expire span { margin-right:4px; }
+    .header .expire .caret { font-size:12px; margin-left:4px; cursor: pointer; }
+
+    .option {
+      margin-bottom: 18px;
+    }
+    .option label {
+      color: #fff; font-size: 15px;
+      display: block; margin-bottom: 6px;
+    }
+
+    /* Sliders */
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      background: #2a2a2a;
+      border-radius: 4px;
+      outline: none;
+      margin: 0;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      background: #8000ff;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-top: -4px;
+      transition: transform .2s;
+    }
+    input[type="range"]:active::-webkit-slider-thumb {
+      transform: scale(1.2);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px; height: 16px;
+      background: #8000ff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+    input[type="range"]:active::-moz-range-thumb {
+      transform: scale(1.2);
+    }
+
+    .slider-container {
+      position: relative;
+    }
+    .slider-value {
+      position: absolute;
+      right: 0; top: -24px;
+      color: #8000ff; font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Toggle */
+    .toggle-wrap {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .toggle-wrap label { color:#fff; font-size:15px; }
+    .toggle {
+      position: relative;
+      width: 44px; height: 24px;
+    }
+    .toggle input {
+      opacity:0; width:0; height:0;
+    }
+    .slider-toggle {
+      position: absolute; cursor: pointer;
+      top:0; left:0; right:0; bottom:0;
+      background:#333; border-radius:34px;
+      transition: background .3s;
+    }
+    .slider-toggle:before {
+      position: absolute;
+      content:"";
+      height:18px; width:18px;
+      left:3px; bottom:3px;
+      background:#fff; border-radius:50%;
+      transition: transform .3s;
+    }
+    .toggle input:checked + .slider-toggle {
+      background:#8000ff;
+    }
+    .toggle input:checked + .slider-toggle:before {
+      transform: translateX(20px);
+    }
+
+    .activate-btn {
+      margin-top: 10px;
+      width: 100%; padding: 10px 0;
+      background: transparent;
+      border: 2px solid #8000ff;
+      color: #fff; font-weight:600;
+      border-radius:8px;
+      cursor:pointer;
+      transition: background .3s;
+    }
+    .activate-btn:hover {
+      background: #8000ff22;
+    }
+    .status {
+      display: none;
+      text-align: center;
+      margin-top: 12px;
+      color: #b265ff;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla de Autenticación -->
+  <div id="authScreen">
+    <div class="auth-box">
+      <h2> PANEL AUTO HEAD👹 </h2>
+      <input type="password" id="authInput" placeholder="Introduce contraseña">
+      <button onclick="authenticate()">🔐DESBLOQUEAR🔐</button>
+    </div>
+  </div>
+
+  <!-- Panel Principal -->
+  <div class="panel" id="mainPanel">
+    <div class="header">
+      <div class="logo">
+        <svg viewBox="0 0 24 24"><path d="M12 2L4 22h16L12 2z"/></svg>
+      </div>
+      <h1> PANEL AUTO HEAD👹 </h1>
+      <div class="expire">
+        <span> 7 DIAS</span>
+        <span class="caret">▼</span>
+      </div>
+    </div>
+
+    <!-- AIM ASSIST SLIDER -->
+    <div class="option">
+      <label for="aimAssist">AIMBOT iOS 🔫</label>
+      <div class="slider-container">
+        <input type="range" id="aimAssist" min="0" max="100" value="0">
+        <div class="slider-value" id="valAimAssist">100%</div>
+      </div>
+    </div>
+
+    <!-- 120 FPS TOGGLE -->
+    <div class="option">
+      <div class="toggle-wrap">
+        <label for="fps120">SEGUIMIENTO DE CABEZA🎯</label>
+        <label class="toggle">
+          <input type="checkbox" id="fps120" checked>
+          <span class="slider-toggle"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- AIMLOCK SLIDER -->
+    <div class="option">
+      <label for="aimLock">AUTO APUNTADO✅</label>
+      <div class="slider-container">
+        <input type="range" id="aimLock" min="0" max="100" value="0">
+        <div class="slider-value" id="valAimLock">100%</div>
+      </div>
+    </div>
+
+    <button class="activate-btn" onclick="activate()">✅ACTIVAR✅</button>
+    <div class="status" id="status">✅PANEL ACTIVADO CORRECTAMENTE✅</div>
+  </div>
+
+  <script>
+    // Setup sliders
+    function setupSlider(id, valId) {
+      const slider = document.getElementById(id);
+      const display = document.getElementById(valId);
+      slider.addEventListener('input', () => {
+        display.textContent = slider.value + '%';
+      });
+    }
+    setupSlider('aimAssist', 'valAimAssist');
+    setupSlider('aimLock', 'valAimLock');
+
+    // Autenticación
+    function authenticate() {
+      const val = document.getElementById('authInput').value.trim().toUpperCase();
+      if (val === '88') {
+        document.getElementById('authScreen').style.display = 'none';
+        document.getElementById('mainPanel').style.display = 'block';
+      } else {
+        alert('Contraseña incorrecta');
+      }
+    }
+
+    // Activar funciones
+    function activate() {
+      const status = document.getElementById('status');
+      status.style.display = 'block';
+      setTimeout(() => status.style.display = 'none', 3000);
+    }
+  </script>
+
+</body>
+</html>
